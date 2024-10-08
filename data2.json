@@ -1,4 +1,5 @@
 {
+  "name": "Smaller Flowchart",
   "nodes": [
     { "id": "1", "category": "Start", "content": "Start the process" },
     { "id": "2", "category": "Decision", "content": "Is the condition true?" },

@@ -1,9 +1,7 @@
-// Function to programmatically trigger the file input
 function triggerFileInput() {
-  document.getElementById("fileInput").click(); // Simulate click on the hidden file input
+  document.getElementById("fileInput").click();
 }
 
-// Function to handle the file once selected
 document
   .getElementById("fileInput")
   .addEventListener("change", function (event) {
@@ -12,8 +10,9 @@ document
       const reader = new FileReader();
       reader.onload = function (e) {
         try {
-          data = JSON.parse(e.target.result); // Parse the uploaded JSON file
-          initChart(); // Initialize the chart with new data (from flowchart.js)
+          data = JSON.parse(e.target.result);
+          document.getElementById("flowchart-name").textContent = data.name;
+          initChart();
         } catch (error) {
           alert("Error parsing JSON file: " + error);
         }

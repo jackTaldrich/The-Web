@@ -2,6 +2,7 @@ let data;
 
 d3.json("data.json").then(function (loadedData) {
   data = loadedData;
+  document.getElementById("flowchart-name").textContent = data.name;
   initChart();
 });
 

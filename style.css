@@ -26,6 +26,15 @@ html {
   fill: #ff4f4c;
 }
 
+#flowchart-name {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0;
+  margin: 0;
+}
+
 .link {
   stroke: black;
   stroke-width: 1.5px;
