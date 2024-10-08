@@ -1,0 +1,33 @@
+{
+  "name": "Example Flowchart",
+  "nodes": [
+    { "id": "1", "category": "Start", "content": "Start the process" },
+    { "id": "2", "category": "Decision", "content": "Is the condition true?" },
+    { "id": "3", "category": "Action", "content": "Perform action A" },
+    { "id": "4", "category": "Action", "content": "Perform action B" },
+    { "id": "5", "category": "End", "content": "End the process" },
+    { "id": "6", "category": "Decision", "content": "Check alternative" },
+    { "id": "7", "category": "Action", "content": "Perform action C" },
+    { "id": "8", "category": "Action", "content": "Perform action D" },
+    { "id": "9", "category": "Decision", "content": "New condition?" },
+    { "id": "10", "category": "Action", "content": "Perform action E" },
+    { "id": "11", "category": "Action", "content": "Perform action F" },
+    { "id": "12", "category": "End", "content": "Alternate process end" }
+  ],
+  "links": [
+    { "source": "1", "target": "2" },
+    { "source": "2", "target": "3" },
+    { "source": "2", "target": "4" },
+    { "source": "3", "target": "5" },
+    { "source": "4", "target": "5" },
+    { "source": "2", "target": "6" },
+    { "source": "6", "target": "7" },
+    { "source": "6", "target": "8" },
+    { "source": "7", "target": "9" },
+    { "source": "8", "target": "9" },
+    { "source": "9", "target": "10" },
+    { "source": "9", "target": "11" },
+    { "source": "10", "target": "12" },
+    { "source": "11", "target": "12" }
+  ]
+}

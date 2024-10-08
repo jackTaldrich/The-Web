@@ -1,0 +1,123 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.node {
+  cursor: default;
+}
+
+.node square {
+  fill: lightblue;
+}
+
+.node circle {
+  fill: lightgrey;
+}
+
+.node diamond {
+  fill: yellow;
+}
+
+.node octagon {
+  fill: #ff4f4c;
+}
+
+.link {
+  stroke: black;
+  stroke-width: 1.5px;
+}
+
+.forward-button {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 5;
+  height: auto;
+  width: auto;
+  font-size: 25px;
+  background-color: rgb(209, 209, 209);
+}
+
+.forward-button:hover {
+  cursor: pointer;
+  background-color: rgb(228, 228, 228);
+}
+
+/* .save-load-grid {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  height: auto;
+  width: auto;
+} */
+
+.save-button,
+.load-button {
+  font-size: 15px;
+}
+
+.load-button {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+}
+
+.viewport-buttons {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+}
+
+.home-button,
+.zoom-in-button,
+.zoom-out-button {
+  width: 50px;
+  height: 50px;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin-top: 5px;
+  background-color: rgb(209, 209, 209);
+}
+
+.home-button:hover,
+.zoom-in-button:hover,
+.zoom-out-button:hover {
+  cursor: pointer;
+  background-color: rgb(228, 228, 228);
+}
+
+.home-image,
+.zoom-in-image,
+.zoom-out-image {
+  width: 45px;
+  height: 45px;
+}
+
+svg {
+  width: 100%;
+  height: 100%;
+  display: block; /* Ensure it takes the entire screen */
+  cursor: grab;
+}
+
+.link {
+  stroke: black;
+  stroke-width: 1.5px;
+}
+
+text {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  pointer-events: none;
+}

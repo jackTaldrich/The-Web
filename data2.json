@@ -1,0 +1,16 @@
+{
+  "nodes": [
+    { "id": "1", "category": "Start", "content": "Start the process" },
+    { "id": "2", "category": "Decision", "content": "Is the condition true?" },
+    { "id": "3", "category": "Action", "content": "Perform action A" },
+    { "id": "4", "category": "Action", "content": "Perform action B" },
+    { "id": "5", "category": "End", "content": "End the process" }
+  ],
+  "links": [
+    { "source": "1", "target": "2" },
+    { "source": "2", "target": "3" },
+    { "source": "2", "target": "4" },
+    { "source": "3", "target": "5" },
+    { "source": "4", "target": "5" }
+  ]
+}
