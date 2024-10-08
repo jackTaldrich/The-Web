@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Web</title>
     <link rel="stylesheet" href="style.css" />
-    <script src="flowchart.js" defer></script>
-    <script src="main.js" defer></script>
+    <script src="js/flowchart.js" defer></script>
+    <script src="js/main.js" defer></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
   </head>
   <body>
@@ -19,18 +19,19 @@
 
     <div class="viewport-buttons">
       <button class="home-button" onclick="home()">
-        <img src="home.png" alt="Home" class="home-image" />
+        <img src="images/home.png" alt="Home" class="home-image" />
       </button>
       <button class="zoom-in-button" onClick="zoomIn()">
-        <img src="zoom-in.png" alt="zoom-in" class="zoom-in-image" />
+        <img src="images/zoom-in.png" alt="zoom-in" class="zoom-in-image" />
       </button>
       <button class="zoom-out-button" onClick="zoomOut()">
-        <img src="zoom-out.png" alt="zoom-out" class="zoom-out-image" />
+        <img src="images/zoom-out.png" alt="zoom-out" class="zoom-out-image" />
       </button>
     </div>
 
     <input type="file" id="fileInput" accept=".json" style="display: none" />
     <button class="load-button" onclick="triggerFileInput()">Load</button>
+
     <!-- <div class="save-load-grid">
       <button class="save-button">Save</button>
       <button class="load-button">Load</button>
