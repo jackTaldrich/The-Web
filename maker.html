@@ -19,14 +19,55 @@
 
     <h1 id="flowchart-name" onclick="changeTitle()">Click to change title</h1>
 
+    <div class="toolbar">
+      <button class="square-button" onclick="squareButton()" title="Start node">
+        <img src="images/square.png" alt="square" class="square-image" />
+      </button>
+      <button
+        class="circle-button"
+        onclick="circleButton()"
+        title="Normal node"
+      >
+        <img src="images/circle.png" alt="circle" class="circle-image" />
+      </button>
+      <button
+        class="rhombus-button"
+        onclick="rhombusButton()"
+        title="Conditional node"
+      >
+        <img src="images/rhombus.png" alt="rhombus" class="rhombus-image" />
+      </button>
+      <button
+        class="hexagon-button"
+        onclick="hexagonButton()"
+        title="Verb node"
+      >
+        <img src="images/hexagon.png" alt="hexagon" class="hexagon-image" />
+      </button>
+      <button class="octagon-button" onclick="octagonButton()" title="End node">
+        <img src="images/octagon.png" alt="octagon" class="octagon-image" />
+      </button>
+      <hr class="toolbar-divider" />
+      <button
+        class="pencil-button"
+        onclick="pencilButton()"
+        title="Node connector"
+      >
+        <img src="images/pencil.png" alt="x" class="pencil-image" />
+      </button>
+      <button class="x-button" onclick="xButton()" title="Node remover">
+        <img src="images/x.png" alt="x" class="x-image" />
+      </button>
+    </div>
+
     <div class="viewport-buttons">
-      <button class="home-button" onclick="home()">
+      <button class="home-button" onclick="home()" title="Reset the viewport">
         <img src="images/home.png" alt="Home" class="home-image" />
       </button>
-      <button class="zoom-in-button" onClick="zoomIn()">
+      <button class="zoom-in-button" onClick="zoomIn()" title="Zoom in">
         <img src="images/zoom-in.png" alt="zoom-in" class="zoom-in-image" />
       </button>
-      <button class="zoom-out-button" onClick="zoomOut()">
+      <button class="zoom-out-button" onClick="zoomOut()" title="Zoom out">
         <img src="images/zoom-out.png" alt="zoom-out" class="zoom-out-image" />
       </button>
     </div>

@@ -85,7 +85,7 @@ function update() {
         .append("polygon")
         .attr(
           "points",
-          "15,-20 25,-10 25,10 15,20 -15,20 -25,10 -25,-10 -15,-20"
+          "12.5,-20 22.5,-10 22.5,10 12.5,20 -12.5,20 -22.5,10 -22.5,-10 -12.5,-20"
         )
         .attr("fill", "red");
     } else {
@@ -124,15 +124,20 @@ function dragEnded(event, d) {
   d.fy = null;
 }
 
-// Function to reset the zoom and pan to the initial view (centered and 100% zoom)
+function squareButton() {}
+function circleButton() {}
+function rhombusButton() {}
+function hexagonButton() {}
+function octagonButton() {}
+function pencilButton() {}
+function xButton() {}
+
 function home() {
   const bounds = container.node().getBBox(); // Get the bounding box of the entire graph
 
-  // Calculate the translation to center the graph at scale 1 (reset zoom)
   const translateX = (width - bounds.width) / 2 - bounds.x;
   const translateY = (height - bounds.height) / 2 - bounds.y;
 
-  // Apply the calculated translation and reset the scale to 1 (default zoom level)
   svg
     .transition()
     .duration(750)
@@ -167,7 +172,7 @@ function saveFlowchart() {
   // Extract only the necessary fields from links (source and target ids)
   const minimalLinks = data.links.map((link) => ({
     source: link.source.id ? link.source.id : link.source, // handle both object and string
-    target: link.target.id ? link.target.id : link.target, // handle both object and string
+    target: link.target.id ? link.target.id : link.target,
   }));
 
   // Create a minimal JSON object with the name, nodes, and links

@@ -6,6 +6,19 @@ html {
   width: 100%;
 }
 
+svg {
+  width: 100%;
+  height: 100%;
+  display: block; /* Ensure it takes the entire screen */
+  cursor: grab;
+}
+
+text {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  pointer-events: none;
+}
+
 .node {
   cursor: default;
 }
@@ -36,6 +49,78 @@ html {
   font-family: "Courier New", Courier, monospace;
 }
 
+.toolbar {
+  position: fixed;
+  top: 10%;
+  left: 0;
+  width: auto;
+  height: auto;
+  background-color: rgb(209, 209, 209);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 5;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  animation: fly-in-left 1s;
+}
+
+@keyframes fly-in-left {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.toolbar-divider {
+  width: 80%;
+  border-top: solid 2px black;
+}
+
+.square-button,
+.circle-button,
+.rhombus-button,
+.hexagon-button,
+.octagon-button,
+.pencil-button,
+.x-button {
+  width: 50px;
+  height: 50px;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin-left: 5px;
+  margin-right: 5px;
+  background-color: rgb(209, 209, 209);
+}
+
+.square-button:hover,
+.circle-button:hover,
+.rhombus-button:hover,
+.hexagon-button:hover,
+.octagon-button:hover,
+.pencil-button:hover,
+.x-button:hover {
+  cursor: pointer;
+  background-color: rgb(228, 228, 228);
+}
+
+.square-image,
+.circle-image,
+.rhombus-image,
+.hexagon-image,
+.octagon-image,
+.pencil-image,
+.x-image {
+  width: 40px;
+  height: 40px;
+}
+
 .forward-button {
   position: fixed;
   top: 10px;
@@ -52,25 +137,10 @@ html {
   background-color: rgb(228, 228, 228);
 }
 
-.save-load-grid {
-  position: fixed;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 5;
-  height: auto;
-  width: auto;
-}
-
 .viewport-buttons {
   position: fixed;
   top: 10px;
   right: 10px;
-}
-
-.save-button,
-.load-button {
-  font-size: 15px;
 }
 
 .home-button,
@@ -101,20 +171,22 @@ html {
   height: 45px;
 }
 
-svg {
-  width: 100%;
-  height: 100%;
-  display: block; /* Ensure it takes the entire screen */
-  cursor: grab;
+.save-load-grid {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  height: auto;
+  width: auto;
+}
+
+.save-button,
+.load-button {
+  font-size: 15px;
 }
 
 .link {
   stroke: black;
   stroke-width: 1.5px;
-}
-
-text {
-  font-family: Arial, sans-serif;
-  font-size: 12px;
-  pointer-events: none;
 }
