@@ -6,6 +6,14 @@ d3.json("data.json").then(function (loadedData) {
   initChart();
 });
 
+document
+  .getElementById("flowchart-name")
+  .addEventListener("click", function () {
+    if (this.textContent === "") {
+      this.textContent = "Click to edit title";
+    }
+  });
+
 const svg = d3.select("svg");
 const width = window.innerWidth;
 const height = window.innerHeight;
@@ -140,6 +148,50 @@ function zoomIn() {
 
 function zoomOut() {
   svg.transition().duration(300).call(zoom.scaleBy, 0.7);
+}
+
+function changeTitle() {
+  const title = document.getElementById("flowchart-name");
+  title.contentEditable = true;
+  title.focus();
+}
+
+function saveFlowchart() {
+  // Extract only the necessary fields from nodes
+  const minimalNodes = data.nodes.map((node) => ({
+    id: node.id,
+    category: node.category,
+    content: node.content,
+  }));
+
+  // Extract only the necessary fields from links (source and target ids)
+  const minimalLinks = data.links.map((link) => ({
+    source: link.source.id ? link.source.id : link.source, // handle both object and string
+    target: link.target.id ? link.target.id : link.target, // handle both object and string
+  }));
+
+  // Create a minimal JSON object with the name, nodes, and links
+  const minimalData = {
+    name: document.getElementById("flowchart-name").textContent,
+    nodes: minimalNodes,
+    links: minimalLinks,
+  };
+
+  // Convert the minimalData object to a JSON string
+  const jsonData = JSON.stringify(minimalData, null, 2);
+
+  // Create a Blob object representing the JSON data
+  const blob = new Blob([jsonData], { type: "application/json" });
+
+  // Create a temporary anchor element to trigger the download
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = minimalData.name + ".json"; // Use the flowchart name for the file
+
+  // Append the anchor to the document, trigger the download, and then remove the anchor
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
 }
 
 function addNode() {

@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Flowchart maker</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="maker.css" />
+    <script src="js/flowchart.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
   </head>
   <body>
     <button
@@ -13,5 +16,27 @@
     >
       Graph a flowchart!
     </button>
+
+    <h1 id="flowchart-name" onclick="changeTitle()">Click to change title</h1>
+
+    <div class="viewport-buttons">
+      <button class="home-button" onclick="home()">
+        <img src="images/home.png" alt="Home" class="home-image" />
+      </button>
+      <button class="zoom-in-button" onClick="zoomIn()">
+        <img src="images/zoom-in.png" alt="zoom-in" class="zoom-in-image" />
+      </button>
+      <button class="zoom-out-button" onClick="zoomOut()">
+        <img src="images/zoom-out.png" alt="zoom-out" class="zoom-out-image" />
+      </button>
+    </div>
+
+    <div class="save-load-grid">
+      <button class="save-button" onclick="saveFlowchart()">Save</button>
+      <input type="file" id="fileInput" accept=".json" style="display: none" />
+      <button class="load-button" onclick="triggerFileInput()">Load</button>
+    </div>
+
+    <svg></svg>
   </body>
 </html>

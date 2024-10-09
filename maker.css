@@ -36,11 +36,6 @@ html {
   font-family: "Courier New", Courier, monospace;
 }
 
-.link {
-  stroke: black;
-  stroke-width: 1.5px;
-}
-
 .forward-button {
   position: fixed;
   top: 10px;
@@ -67,23 +62,15 @@ html {
   width: auto;
 }
 
-.save-button,
-.load-button {
-  font-size: 15px;
-}
-
-/* .load-button {
-  position: fixed;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 5;
-} */
-
 .viewport-buttons {
   position: fixed;
   top: 10px;
   right: 10px;
+}
+
+.save-button,
+.load-button {
+  font-size: 15px;
 }
 
 .home-button,
