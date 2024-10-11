@@ -85,6 +85,11 @@ function update() {
   node = node.data(data.nodes, (d) => d.id);
   node.exit().remove();
 
+  setTextButton(data.nodes.length > 0);
+  setSquareButton(
+    data.nodes.filter((node) => node.category === "Start").length === 0
+  );
+
   const nodeEnter = node.enter().append("g");
 
   nodeEnter
@@ -502,6 +507,44 @@ function xButton() {
   deleteAllNodes();
 }
 
+function setTextButton(value) {
+  const textButton = document.getElementsByClassName("text-button")[0];
+
+  if (value === false) {
+    textButton.style.backgroundColor = "rgb(87, 86, 86)";
+    textButton.style.pointerEvents = "none";
+
+    return;
+  }
+
+  if (value === true) {
+    textButton.style.backgroundColor = "rgb(209, 209, 209)";
+    textButton.style.pointerEvents = "auto";
+
+    return;
+  }
+
+  return;
+}
+
+function setSquareButton(value) {
+  const squareButton = document.getElementsByClassName("square-button")[0];
+
+  if (value === false) {
+    squareButton.style.backgroundColor = "rgb(87, 86, 86)";
+    squareButton.style.pointerEvents = "none";
+
+    return;
+  }
+
+  if (value === true) {
+    squareButton.style.backgroundColor = "rgb(209, 209, 209)";
+    squareButton.style.pointerEvents = "auto";
+
+    return;
+  }
+}
+
 function home() {
   const bounds = container.node().getBBox();
 
@@ -569,6 +612,11 @@ function addNode() {
   data.links.push({
     source: data.nodes[data.nodes.length - 2].id,
     target: newNodeId,
+  });
+
+  actionHistory.push({
+    type: "addNode",
+    data: { id: newNodeId },
   });
 
   update();
