@@ -1,7 +1,7 @@
 {
   "name": "Example Flowchart",
   "nodes": [
-    { "id": "1", "category": "Start", "content": "Start the process" },
+    { "id": "1", "category": "Start", "content": "Start" },
     { "id": "2", "category": "Decision", "content": "Is the condition true?" },
     { "id": "3", "category": "Action", "content": "Perform action A" },
     { "id": "4", "category": "Action", "content": "Perform action B" },

@@ -24,6 +24,25 @@ document
     }
   });
 
+window.addEventListener("keydown", function (e) {
+  const target = e.target;
+  const ignoreTags = ["INPUT", "TEXTAREA", "SELECT"];
+
+  if (ignoreTags.includes(target.tagName)) return;
+
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z") {
+    if (canUndoAction()) {
+      e.preventDefault();
+      undoButton();
+    }
+  }
+
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  if (isSafari && e.metaKey && e.key.toLowerCase() === "z") {
+    e.preventDefault();
+  }
+});
+
 const svg = d3.select("svg");
 const width = window.innerWidth;
 const height = window.innerHeight;
@@ -131,6 +150,45 @@ function update() {
   simulation.alpha(1).restart();
 }
 
+document.querySelector("svg").addEventListener("click", function (event) {
+  if (event.target && event.target.tagName === "text") {
+    makeSvgTextEditable(event.target);
+  }
+});
+
+function makeSvgTextEditable(textElement) {
+  const currentText = textElement.textContent;
+
+  const input = document.createElement("input");
+  input.type = "text";
+  input.value = currentText;
+  input.style.position = "absolute";
+
+  const svgRect = textElement.getBoundingClientRect();
+  input.style.left = `${svgRect.left}px`;
+  input.style.top = `${svgRect.top}px`;
+  input.style.width = `${svgRect.width}px`;
+
+  document.body.appendChild(input);
+  input.focus();
+
+  input.addEventListener("blur", function () {
+    updateSvgText(textElement, input.value);
+    document.body.removeChild(input);
+  });
+
+  input.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      updateSvgText(textElement, input.value);
+      document.body.removeChild(input);
+    }
+  });
+}
+
+function updateSvgText(textElement, newText) {
+  textElement.textContent = newText;
+}
+
 function getNodeColor(d) {
   if (d.selected) {
     return "green";
@@ -173,7 +231,7 @@ function squareButton() {
   const newNode = {
     id: (data.nodes.length + 1).toString(),
     category: "Start",
-    content: "New square node",
+    content: "Start",
     x: width / 2,
     y: height / 2,
   };
@@ -181,6 +239,12 @@ function squareButton() {
   if (numSquares != 0) {
     return;
   }
+
+  actionHistory.push({
+    type: "addNode",
+    data: newNode,
+  });
+
   data.nodes.push(newNode);
 
   update();
@@ -253,25 +317,50 @@ function pencilButton() {
 
 function nodeClicked(event, d) {
   if (eraserToggle) {
-    // Remove the node and associated links
     removeNode(d);
   } else if (pencilToggle) {
-    // Existing logic for linking nodes when the pencil tool is active
     if (!selectedNode) {
-      // First node selection
       selectedNode = d;
-      d.selected = true; // Mark the node as selected
-      update(); // Update the visualization to reflect the change
+      d.selected = true;
+      update();
     } else if (selectedNode.id !== d.id) {
-      // Second node selection
-      data.links.push({ source: selectedNode.id, target: d.id }); // Create a link
-      selectedNode.selected = false; // Reset the selection state
-      selectedNode = null; // Reset for the next interaction
-      update(); // Update the visualization
+      data.links.push({ source: selectedNode.id, target: d.id });
+      selectedNode.selected = false;
+      selectedNode = null;
+      update();
     }
   } else {
-    // If neither eraser nor pencil tool is active, do nothing or handle other interactions
-    return;
+    const selectedNode = d3.select(this);
+    const textElement = selectedNode.select("text");
+
+    const currentText = textElement.text();
+    const bbox = textElement.node().getBBox();
+
+    const foreignObject = selectedNode
+      .append("foreignObject")
+      .attr("x", bbox.x - 10)
+      .attr("y", bbox.y - 10)
+      .attr("width", bbox.width + 20)
+      .attr("height", bbox.height + 20)
+      .append("xhtml:input")
+      .attr("type", "text")
+      .attr("value", currentText)
+      .style("width", `${bbox.width + 20}px`)
+      .style("height", `${bbox.height + 10}px`)
+      .on("blur", function () {
+        d.content = this.value;
+        textElement.text(this.value);
+        selectedNode.select("foreignObject").remove();
+      })
+      .on("keydown", function (e) {
+        if (e.key === "Enter") {
+          d.content = this.value;
+          textElement.text(this.value);
+          selectedNode.select("foreignObject").remove();
+        }
+      });
+
+    foreignObject.node().focus();
   }
 }
 
@@ -286,19 +375,16 @@ function eraserButton() {
   const pencilButton = document.getElementsByClassName("pencil-button")[0];
   const eraserButton = document.getElementsByClassName("eraser-button")[0];
 
-  // Deactivate the pencil tool if it's active
   if (pencilToggle) {
     pencilToggle = false;
     pencilButton.style.backgroundColor = "rgb(209, 209, 209)";
   }
 
-  // Toggle the eraser tool
   eraserToggle = !eraserToggle;
 
-  // Update the eraser button's background color to reflect its state
   eraserButton.style.backgroundColor = eraserToggle
-    ? "rgb(87, 86, 86)" // Active state color
-    : "rgb(209, 209, 209)"; // Inactive state color
+    ? "rgb(87, 86, 86)"
+    : "rgb(209, 209, 209)";
 }
 
 function textButton() {
@@ -307,6 +393,61 @@ function textButton() {
   d3.selectAll("g")
     .select("text")
     .style("display", textVisible ? "block" : "none");
+}
+
+function undoButton() {
+  if (actionHistory.length === 0) {
+    return;
+  }
+
+  const lastAction = actionHistory.pop();
+
+  switch (lastAction.type) {
+    case "addNode":
+      data.nodes = data.nodes.filter((n) => n.id !== lastAction.data.id);
+
+      data.links = data.links.filter((l) => {
+        const sourceId = l.source.id ? l.source.id : l.source;
+        const targetId = l.target.id ? l.target.id : l.target;
+
+        return (
+          sourceId !== lastAction.data.id && targetId !== lastAction.data.id
+        );
+      });
+      break;
+
+    case "addLink":
+      data.links = data.links.filter(
+        (l) =>
+          !(
+            (l.source.id ? l.source.id : l.source) ===
+              (lastAction.data.source.id
+                ? lastAction.data.source.id
+                : lastAction.data.source) &&
+            (l.target.id ? l.target.id : l.target) ===
+              (lastAction.data.target.id
+                ? lastAction.data.target.id
+                : lastAction.data.target)
+          )
+      );
+      break;
+
+    case "removeNode":
+      data.nodes.push(lastAction.data.node);
+
+      data.links = data.links.concat(lastAction.data.links);
+      break;
+
+    case "deleteAllNodes":
+      data.nodes = lastAction.data.nodes;
+      data.links = lastAction.data.links;
+      break;
+
+    default:
+      console.error("Unknown action type:", lastAction.type);
+  }
+
+  update();
 }
 
 function xButton() {
@@ -386,30 +527,50 @@ function addNode() {
 }
 
 function removeNode(nodeData) {
-  // Remove the node from data.nodes
+  const connectedLinks = data.links.filter(function (l) {
+    const sourceId = l.source.id ? l.source.id : l.source;
+    const targetId = l.target.id ? l.target.id : l.target;
+
+    return sourceId === nodeData.id || targetId === nodeData.id;
+  });
+
   data.nodes = data.nodes.filter(function (n) {
     return n.id !== nodeData.id;
   });
 
-  // Remove any links connected to the node
   data.links = data.links.filter(function (l) {
-    // Handle both cases where source and target are objects or ids
     const sourceId = l.source.id ? l.source.id : l.source;
     const targetId = l.target.id ? l.target.id : l.target;
 
     return sourceId !== nodeData.id && targetId !== nodeData.id;
   });
 
-  // If the node was selected (in pencil mode), reset the selection
   if (selectedNode && selectedNode.id === nodeData.id) {
     selectedNode = null;
   }
 
-  // Update the graph
+  actionHistory.push({
+    type: "removeNode",
+    data: {
+      node: nodeData,
+      links: connectedLinks,
+    },
+  });
+
   update();
 }
 
 function deleteAllNodes() {
+  const previousState = {
+    nodes: [...data.nodes],
+    links: [...data.links],
+  };
+
+  actionHistory.push({
+    type: "deleteAllNodes",
+    data: previousState,
+  });
+
   data.nodes = [];
   data.links = [];
 
