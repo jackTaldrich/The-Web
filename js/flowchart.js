@@ -347,7 +347,7 @@ function nodeClicked(event, d) {
       selectedNode = d;
       d.selected = true;
       update();
-    } else if (selectedNode) {
+    } else if (selectedNode && selectedNode.id === d.id) {
       selectedNode = d;
       d.selected = false;
       update();
