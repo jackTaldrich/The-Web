@@ -267,6 +267,11 @@ function circleButton() {
     y: height / 2,
   };
 
+  actionHistory.push({
+    type: "addNode",
+    data: newNode,
+  });
+
   data.nodes.push(newNode);
 
   update();
@@ -280,6 +285,11 @@ function rhombusButton() {
     x: width / 2,
     y: height / 2,
   };
+
+  actionHistory.push({
+    type: "addNode",
+    data: newNode,
+  });
 
   data.nodes.push(newNode);
 
@@ -295,6 +305,11 @@ function hexagonButton() {
     y: height / 2,
   };
 
+  actionHistory.push({
+    type: "addNode",
+    data: newNode,
+  });
+
   data.nodes.push(newNode);
 
   update();
@@ -308,6 +323,11 @@ function octagonButton() {
     x: width / 2,
     y: height / 2,
   };
+
+  actionHistory.push({
+    type: "addNode",
+    data: newNode,
+  });
 
   data.nodes.push(newNode);
 
