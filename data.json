@@ -1,5 +1,5 @@
 {
-  "name": "Example Flowchart",
+  "name": "Click to change title",
   "nodes": [
     { "id": "1", "category": "Start", "content": "Start" },
     { "id": "2", "category": "Decision", "content": "Is the condition true?" },

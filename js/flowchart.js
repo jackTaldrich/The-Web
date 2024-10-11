@@ -73,6 +73,7 @@ svg.call(zoom);
 function initChart() {
   simulation.nodes(data.nodes);
   simulation.force("link").links(data.links);
+
   update();
 }
 
@@ -329,8 +330,12 @@ function pencilButton() {
     : "rgb(209, 209, 209)";
 
   if (!pencilToggle) {
+    data.nodes.forEach((node) => (node.selected = false));
+
     selectedNode = null;
     secondNode = null;
+
+    update();
   }
 }
 
@@ -341,6 +346,10 @@ function nodeClicked(event, d) {
     if (!selectedNode) {
       selectedNode = d;
       d.selected = true;
+      update();
+    } else if (selectedNode) {
+      selectedNode = d;
+      d.selected = false;
       update();
     } else if (selectedNode.id !== d.id) {
       data.links.push({ source: selectedNode.id, target: d.id });

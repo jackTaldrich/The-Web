@@ -51,7 +51,7 @@ text {
 
 .toolbar {
   position: fixed;
-  top: 10%;
+  top: 12.5%;
   left: 0;
   width: auto;
   height: auto;
@@ -144,6 +144,10 @@ text {
 .forward-button:hover {
   cursor: pointer;
   background-color: rgb(228, 228, 228);
+}
+
+.second {
+  top: 50px;
 }
 
 .viewport-buttons {
