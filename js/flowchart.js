@@ -112,6 +112,11 @@ function update() {
         .attr("height", 40)
         .attr("x", -20)
         .attr("y", -20);
+    } else if (d.category === "Verb") {
+      shape = d3
+        .select(this)
+        .append("polygon")
+        .attr("points", "0,-20 17.32,-10 17.32,10 0,20 -17.32,10 -17.32,-10");
     } else if (d.category === "End") {
       shape = d3
         .select(this)
@@ -194,10 +199,12 @@ function getNodeColor(d) {
     return "green";
   } else {
     switch (d.category) {
-      case "Decision":
-        return "orange";
       case "Start":
         return "lightblue";
+      case "Decision":
+        return "orange";
+      case "Verb":
+        return "lightgreen";
       case "End":
         return "red";
       default:
@@ -278,7 +285,19 @@ function rhombusButton() {
   update();
 }
 
-function hexagonButton() {}
+function hexagonButton() {
+  const newNode = {
+    id: (data.nodes.length + 1).toString(),
+    category: "Verb",
+    content: "New verb node",
+    x: width / 2,
+    y: height / 2,
+  };
+
+  data.nodes.push(newNode);
+
+  update();
+}
 
 function octagonButton() {
   const newNode = {
