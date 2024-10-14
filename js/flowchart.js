@@ -509,6 +509,7 @@ function xButton() {
 
 function setTextButton(value) {
   const textButton = document.getElementsByClassName("text-button")[0];
+  if (!textButton) return;
 
   if (value === false) {
     textButton.style.backgroundColor = "rgb(87, 86, 86)";
@@ -529,6 +530,7 @@ function setTextButton(value) {
 
 function setSquareButton(value) {
   const squareButton = document.getElementsByClassName("square-button")[0];
+  if (!squareButton) return;
 
   if (value === false) {
     squareButton.style.backgroundColor = "rgb(87, 86, 86)";
