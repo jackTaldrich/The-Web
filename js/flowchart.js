@@ -10,7 +10,14 @@ let eraserToggle = false;
 
 let textVisible = true;
 
-d3.json("data.json").then(function (loadedData) {
+function getQueryParameter(param) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(param);
+}
+
+const chartPath = getQueryParameter("chart") || "charts/data.json";
+
+d3.json(chartPath).then(function (loadedData) {
   data = loadedData;
   document.getElementById("flowchart-name").textContent = data.name;
   initChart();

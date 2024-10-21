@@ -1,0 +1,45 @@
+button {
+  background-color: rgb(209, 209, 209);
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15vw;
+  height: 15vw;
+  border-radius: 10px;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  font-size: 2em;
+}
+
+.forward-button {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 5;
+  height: auto;
+  width: auto;
+  font-size: 25px;
+  background-color: rgb(209, 209, 209);
+}
+
+.forward-button:hover {
+  cursor: pointer;
+  background-color: rgb(228, 228, 228);
+}
+
+.right {
+  left: auto;
+  right: 10px;
+}
+
+.spacer {
+  height: 50px;
+}
+
+.flowchart-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}

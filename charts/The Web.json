@@ -1,0 +1,94 @@
+{
+  "name": "The Web",
+  "nodes": [
+    {
+      "id": "1",
+      "category": "Start",
+      "content": ""
+    },
+    {
+      "id": "2",
+      "category": "Action",
+      "content": ""
+    },
+    {
+      "id": "3",
+      "category": "Action",
+      "content": ""
+    },
+    {
+      "id": "4",
+      "category": "Action",
+      "content": ""
+    },
+    {
+      "id": "5",
+      "category": "Action",
+      "content": ""
+    },
+    {
+      "id": "6",
+      "category": "Action",
+      "content": ""
+    },
+    {
+      "id": "7",
+      "category": "Action",
+      "content": ""
+    }
+  ],
+  "links": [
+    {
+      "source": "2",
+      "target": "1"
+    },
+    {
+      "source": "3",
+      "target": "1"
+    },
+    {
+      "source": "4",
+      "target": "1"
+    },
+    {
+      "source": "5",
+      "target": "1"
+    },
+    {
+      "source": "6",
+      "target": "1"
+    },
+    {
+      "source": "7",
+      "target": "1"
+    },
+    {
+      "source": "6",
+      "target": "7"
+    },
+    {
+      "source": "2",
+      "target": "7"
+    },
+    {
+      "source": "5",
+      "target": "2"
+    },
+    {
+      "source": "4",
+      "target": "5"
+    },
+    {
+      "source": "3",
+      "target": "4"
+    },
+    {
+      "source": "3",
+      "target": "6"
+    },
+    {
+      "source": "5",
+      "target": "1"
+    }
+  ]
+}

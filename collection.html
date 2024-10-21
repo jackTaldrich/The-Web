@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flowchart collection</title>
+    <link rel="icon" href="favicon.png" />
+    <link rel="stylesheet" href="collection.css" />
+    <script src="js/collection.js" defer></script>
+  </head>
+  <body>
+    <button
+      class="forward-button"
+      onclick="window.location.href = 'maker.html'"
+    >
+      Make a flowchart!
+    </button>
+    <button
+      class="forward-button right"
+      onclick="location.href='mailto:justjack006@gmail.com'"
+    >
+      Submit a flowchart!
+    </button>
+    <div class="spacer"></div>
+    <div class="flowchart-grid">
+      <button onclick="loadSelectedFlowchart('charts/data.json')">
+        Example Flowchart
+      </button>
+      <button onclick="loadSelectedFlowchart('charts/data2.json')">
+        Smaller Flowchart
+      </button>
+      <button onclick="loadSelectedFlowchart('charts/scho chart.json')">
+        Scho Chart
+      </button>
+      <button onclick="loadSelectedFlowchart('charts/The Web.json')">
+        The Web
+      </button>
+    </div>
+  </body>
+</html>
